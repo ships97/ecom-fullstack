@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0-alpine
+    container_name: ecom_mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ecom_user
+      MONGO_INITDB_ROOT_PASSWORD: ecom_password
+      MONGO_INITDB_DATABASE: ecom_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: --auth
+
+volumes:
+  mongodb_data:
+  mongodb_config:

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 interface Product {
-  id: string
+  _id: string
   name: string
   price: number
   description: string
@@ -11,17 +11,21 @@ interface Product {
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Fetch from API when backend is ready
-        // const response = await fetch('/api/products')
-        // const data = await response.json()
-        // setProducts(data)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching products:', error)
+        const response = await fetch('http://localhost:5000/api/products')
+        if (!response.ok) {
+          throw new Error('Failed to fetch products')
+        }
+        const data = await response.json()
+        setProducts(data)
+      } catch (err) {
+        console.error('Error fetching products:', err)
+        setError('Could not load products. Is the backend server running?')
+      } finally {
         setLoading(false)
       }
     }
@@ -30,6 +34,10 @@ const Products = () => {
 
   if (loading) {
     return <div className="text-center py-12 text-gray-500">Loading products...</div>
+  }
+
+  if (error) {
+    return <div className="text-center py-12 text-red-500">{error}</div>
   }
 
   return (
@@ -42,13 +50,13 @@ const Products = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <div key={product.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+            <div key={product._id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
               <div className="h-48 bg-gray-200"></div>
               <div className="p-4">
                 <h2 className="text-lg font-bold mb-2">{product.name}</h2>
                 <p className="text-gray-600 text-sm mb-4">{product.description}</p>
                 <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-blue-600">${product.price}</span>
+                  <span className="text-2xl font-bold text-blue-600">₹{product.price}</span>
                   <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
                     Add to Cart
                   </button>

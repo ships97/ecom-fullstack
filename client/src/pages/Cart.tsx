@@ -11,15 +11,15 @@ const Cart = () => {
           <div className="space-y-2 mb-4">
             <div className="flex justify-between">
               <span>Subtotal:</span>
-              <span>$0.00</span>
+              <span>₹0.00</span>
             </div>
             <div className="flex justify-between">
               <span>Shipping:</span>
-              <span>$0.00</span>
+              <span>₹0.00</span>
             </div>
             <div className="border-t pt-2 flex justify-between font-bold">
               <span>Total:</span>
-              <span>$0.00</span>
+              <span>₹0.00</span>
             </div>
           </div>
           <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 disabled:opacity-50" disabled>

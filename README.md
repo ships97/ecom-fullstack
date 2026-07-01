@@ -35,7 +35,6 @@ A modern full-stack e-commerce application built with Express.js, React, TypeScr
 ecom-fullstack/
 ├── server/          # Backend Express.js application
 ├── client/          # Frontend React application
-├── docker-compose.mongodb.yml
 ├── .gitignore
 └── README.md
 ```
@@ -44,7 +43,7 @@ ecom-fullstack/
 
 ### Prerequisites
 - Node.js (v18+)
-- MongoDB (v7+) or Docker
+- MongoDB (v7+) - Install locally from https://www.mongodb.com/try/download/community
 - npm or yarn
 
 ### Installation
@@ -55,27 +54,39 @@ git clone https://github.com/ships97/ecom-fullstack.git
 cd ecom-fullstack
 ```
 
-2. Start MongoDB with Docker
-```bash
-docker-compose -f docker-compose.mongodb.yml up -d
-```
-
-3. Install backend dependencies
+2. Install backend dependencies
 ```bash
 cd server
 npm install
 ```
 
-4. Install frontend dependencies
+3. Install frontend dependencies
 ```bash
 cd ../client
 npm install
 ```
 
+4. Setup MongoDB
+
+**On Windows:**
+- MongoDB is installed as a service by default
+- It runs on `localhost:27017`
+- Open MongoDB Compass (included with MongoDB) to manage your database
+
+**On macOS:**
+```bash
+brew services start mongodb-community
+```
+
+**On Linux:**
+```bash
+sudo systemctl start mongod
+```
+
 5. Setup environment variables
 ```bash
-# In server/.env
-MONGODB_URI=mongodb://ecom_user:ecom_password@localhost:27017/ecom_db
+# In server/.env (copy from .env.example)
+MONGODB_URI=mongodb://localhost:27017/ecom_db
 JWT_SECRET=your_super_secret_jwt_key_change_this_in_production
 JWT_EXPIRY=7d
 PORT=5000
@@ -99,6 +110,31 @@ npm run dev
 
 The application will be available at `http://localhost:3000`
 
+## MongoDB Management
+
+**Access MongoDB shell:**
+```bash
+mongosh
+```
+
+**Common MongoDB commands:**
+```bash
+# Connect to database
+use ecom_db
+
+# View collections
+show collections
+
+# View documents
+db.users.find()
+db.products.find()
+db.orders.find()
+```
+
+**Or use MongoDB Compass GUI:**
+- Download from https://www.mongodb.com/products/compass
+- Connect to: `mongodb://localhost:27017`
+
 ## API Endpoints
 
 - `GET /api/health` - Health check
@@ -109,20 +145,20 @@ The application will be available at `http://localhost:3000`
 - `POST /api/orders` - Create order (requires auth)
 - `GET /api/orders` - Get user orders (requires auth)
 
-## Docker Commands
+## Stopping MongoDB
 
+**On Windows:**
+- MongoDB runs as a service automatically
+- To stop: Open Services (services.msc) and stop MongoDB
+
+**On macOS:**
 ```bash
-# Start MongoDB
-docker-compose -f docker-compose.mongodb.yml up -d
+brew services stop mongodb-community
+```
 
-# Stop MongoDB
-docker-compose -f docker-compose.mongodb.yml down
-
-# View MongoDB logs
-docker-compose -f docker-compose.mongodb.yml logs -f mongodb
-
-# Access MongoDB shell
-docker exec -it ecom_mongodb mongosh -u ecom_user -p ecom_password --authenticationDatabase admin
+**On Linux:**
+```bash
+sudo systemctl stop mongod
 ```
 
 ## Contributing

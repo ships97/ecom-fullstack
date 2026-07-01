@@ -7,7 +7,7 @@ interface LoginModalProps {
 }
 
 const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLoginForm, setIsLoginForm] = useState(true)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,8 +30,8 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
     setError('')
 
     try {
-      const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register'
-      const payload = isLogin
+      const endpoint = isLoginForm ? '/api/auth/login' : '/api/auth/register'
+      const payload = isLoginForm
         ? { email: formData.email, password: formData.password }
         : formData
 
@@ -50,7 +50,6 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
         return
       }
 
-      // Store token and user data
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
 
@@ -71,27 +70,27 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
       <div className="bg-white rounded-lg shadow-lg p-8 w-96">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">
-            {isLogin ? 'Login' : 'Register'}
+            {isLoginForm ? 'Login' : 'Register'}
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-2xl"
+            className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
           >
             ×
           </button>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded text-sm">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {!isLogin && (
+          {!isLoginForm && (
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Name
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Full Name
               </label>
               <input
                 type="text"
@@ -100,13 +99,13 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
                 onChange={handleChange}
                 placeholder="Your name"
                 className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-600"
-                required={!isLogin}
+                required={!isLoginForm}
               />
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
             <input
@@ -121,7 +120,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Password
             </label>
             <input
@@ -138,26 +137,26 @@ const LoginModal = ({ isOpen, onClose, onLogin }: LoginModalProps) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:bg-gray-400"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 font-medium"
           >
-            {loading ? 'Processing...' : isLogin ? 'Login' : 'Register'}
+            {loading ? 'Processing...' : isLoginForm ? 'Login' : 'Register'}
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-gray-600 text-sm">
-            {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
-            <button
-              onClick={() => {
-                setIsLogin(!isLogin)
-                setFormData({ name: '', email: '', password: '' })
-                setError('')
-              }}
-              className="text-blue-600 hover:underline font-medium"
-            >
-              {isLogin ? 'Register' : 'Login'}
-            </button>
+        <div className="mt-6 text-center border-t pt-4">
+          <p className="text-gray-600 text-sm mb-3">
+            {isLoginForm ? "Don't have an account?" : 'Already have an account?'}
           </p>
+          <button
+            onClick={() => {
+              setIsLoginForm(!isLoginForm)
+              setFormData({ name: '', email: '', password: '' })
+              setError('')
+            }}
+            className="text-blue-600 hover:underline font-medium text-sm"
+          >
+            {isLoginForm ? 'Create Account' : 'Sign In'}
+          </button>
         </div>
       </div>
     </div>

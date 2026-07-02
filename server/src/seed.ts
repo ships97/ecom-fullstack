@@ -11,7 +11,7 @@ const sampleProducts = [
     price: 2499,
     stock: 25,
     category: 'electronics',
-    image: '',
+    image: 'https://placehold.co/400x300/1E3A8A/FFFFFF?text=Wireless+Headphones',
   },
   {
     name: 'Smart Watch',
@@ -19,7 +19,7 @@ const sampleProducts = [
     price: 3999,
     stock: 15,
     category: 'electronics',
-    image: '',
+    image: 'https://placehold.co/400x300/065F46/FFFFFF?text=Smart+Watch',
   },
   {
     name: 'Cotton T-Shirt',
@@ -27,7 +27,7 @@ const sampleProducts = [
     price: 499,
     stock: 100,
     category: 'clothing',
-    image: '',
+    image: 'https://placehold.co/400x300/B91C1C/FFFFFF?text=Cotton+T-Shirt',
   },
   {
     name: 'Running Shoes',
@@ -35,7 +35,7 @@ const sampleProducts = [
     price: 1999,
     stock: 40,
     category: 'footwear',
-    image: '',
+    image: 'https://placehold.co/400x300/B45309/FFFFFF?text=Running+Shoes',
   },
   {
     name: 'Backpack',
@@ -43,7 +43,7 @@ const sampleProducts = [
     price: 1299,
     stock: 30,
     category: 'accessories',
-    image: '',
+    image: 'https://placehold.co/400x300/4C1D95/FFFFFF?text=Backpack',
   },
   {
     name: 'Coffee Mug',
@@ -51,7 +51,7 @@ const sampleProducts = [
     price: 299,
     stock: 60,
     category: 'home',
-    image: '',
+    image: 'https://placehold.co/400x300/92400E/FFFFFF?text=Coffee+Mug',
   },
   {
     name: 'Desk Lamp',
@@ -59,7 +59,7 @@ const sampleProducts = [
     price: 899,
     stock: 20,
     category: 'home',
-    image: '',
+    image: 'https://placehold.co/400x300/A16207/FFFFFF?text=Desk+Lamp',
   },
   {
     name: 'Yoga Mat',
@@ -67,7 +67,7 @@ const sampleProducts = [
     price: 799,
     stock: 35,
     category: 'fitness',
-    image: '',
+    image: 'https://placehold.co/400x300/166534/FFFFFF?text=Yoga+Mat',
   },
 ];
 
